@@ -1,8 +1,9 @@
 import express from "express"
-import { login } from "../controllers/auth.js"
+import { register, login } from "../controllers/auth.js"
 
 const router = express.Router();
 
+router.post("/", register);
 //prefix auth
 router.post("/login", login);
 

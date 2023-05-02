@@ -8,11 +8,11 @@ export const register = async (req, res) => {
     try {
         const {
             username,
-            events,
             places,
             email,
             password,
             picturePath,
+            events,
             postedEvents            
         } = req.body;
 

@@ -2,7 +2,7 @@ import express from "express"
 import {
     getUser,
     getUserEvents,
-    addRemoveOrganization,
+    addRemoveEvent,
 } from "../controllers/users.js";
 import { verifyToken } from "../middleware/auth.js";
 
@@ -16,6 +16,6 @@ router.get("/:id/events", verifyToken, getUserEvents);
 
 // UPDATE
 
-router.patch("/:id/:Id", verifyToken, addRemoveOrganization);
+router.patch("/:id/:Id", verifyToken, addRemoveEvent);
 
 export default router;

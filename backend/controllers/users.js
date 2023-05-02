@@ -1,4 +1,4 @@
-import User from "../models/User"
+import User from "../models/User.js";
 
 // READ
 
@@ -22,8 +22,8 @@ export const getUserEvents = async (req, res) => {
             user.events.map((id) => User.findById(id))
         );
         const formattedEvents = events.map(
-            ({ _id, title, location, picturePath }) => {
-                return { _id, title, location, picturePath };
+            ({ _id, title, username, location, picturePath }) => {
+                return { _id, title, username, location, picturePath };
             }
         );
         res.status(200).json(formattedEvents);
@@ -34,7 +34,7 @@ export const getUserEvents = async (req, res) => {
 };
 
 // UPDATE
-
+ 
 export const addRemoveEvent = async (req, res) => {
     try {
         const { id, eventId } = req.params;
@@ -55,8 +55,8 @@ export const addRemoveEvent = async (req, res) => {
             user.events.map((id) => User.findById(id))
         );
         const formattedEvents = events.map(
-            ({ _id, title, location, picturePath }) => {
-                return { _id, title, location, picturePath };
+            ({ _id, title, username, location, picturePath }) => {
+                return { _id, title, username, location, picturePath };
             }
         );
         

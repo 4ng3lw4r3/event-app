@@ -1,5 +1,4 @@
 import express from 'express'
-import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import dotenv from 'dotenv'
@@ -14,6 +13,8 @@ import { fileURLToPath } from 'url'
 import { register } from "./controllers/auth.js"
 import { createEvent } from "./controllers/events.js"
 import { verifyToken } from './middleware/auth.js'
+import User from './models/User.js'
+import Event from './models/Event.js'
 
 
 // CONFIGURATIONS
@@ -26,8 +27,8 @@ app.use(express.json())
 app.use(helmet())
 app.use(helmet.crossOriginResourcePolicy({ policy : "cross-origin" }))
 app.use(morgan("common"))
-app.use(bodyParser.json({ limit: "30mb", extended: true }))
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true  }))
+app.use(express.json({ limit: "30mb", extended: true }))
+app.use(express.urlencoded({ limit: "30mb", extended: true  }))
 app.use(cors())
 app.use("/assets", express.static(path.join(__dirname, 'public/assets')))
 
@@ -59,7 +60,7 @@ app.use("/events", eventRoutes);
 const PORT = process.env.PORT || 6001
 mongoose
     .connect(process.env.MONGO_URL, {
-        useNewUrlParse: true,
+        // useNewUrlParse: true,
         useUnifiedTopology: true,
     })
     .then(() => {
