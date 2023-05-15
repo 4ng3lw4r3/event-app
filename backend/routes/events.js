@@ -2,20 +2,24 @@ import express from "express"
 import {
     createEvent,
     getEvents,
-    getOrganizationEvents,
+    getUserEvents,
     likeEvent,
 } from "../controllers/events.js";
 import { verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
 
+
+// CREATE
+
 router.post("/events", verifyToken, createEvent);
 
 // READ
 
 //prefix users
+
 router.get("/", verifyToken, getEvents);
-router.get("/:userId/events", verifyToken, getOrganizationEvents)
+router.get("/:userId/events", verifyToken, getUserEvents)
 
 // UPDATE
 

@@ -28,8 +28,10 @@ export const register = async (req, res) => {
             picturePath,
             postedEvents: Math.floor(Math.random() * 100)
         });
+
         const savedUser = await newUser.save();
         res.status(201).json(savedUser);
+        
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

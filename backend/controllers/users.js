@@ -13,7 +13,7 @@ export const getUser = async (req, res) => {
     }
 }
 
-export const getUserEvents = async (req, res) => {
+export const getUserEvents = async (req, res) => { // friends
     try {
         const { id } = req.params;
         const user = await User.findById(id);

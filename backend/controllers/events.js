@@ -1,21 +1,34 @@
 import Event from "../models/Event.js"
+import User from "../models/User.js";
 
 // CREATE
 
 export const createEvent = async (req, res) => {
     try {
-        const { userId, title, username, location, description, picturePath, likes, comments } = req.body;
+        const { 
+            userId, 
+            title, 
+            username, 
+            location, 
+            description, 
+            picturePath, 
+            likes,
+            comments 
+        } = req.body;
+
+        const user = await User.findById(userId);
+
         const newEvent = new Event({
             userId,
             title,
             username: user.username,
             location,
             description,
-            userPicturePath: user.PicturePath,
+            userPicturePath: user.picturePath,
             picturePath,
             likes: {},
             comments: []
-        })
+        });
         await newEvent.save();
 
         const event = await Event.find();
@@ -39,7 +52,7 @@ export const getEvents = async (req, res) => {
     }
 }
 
-export const getOrganizationEvents = async (req, res) => {
+export const getUserEvents = async (req, res) => {
     try {
 
         const { userId } = req.params;
