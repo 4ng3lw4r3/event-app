@@ -12,7 +12,10 @@ const eventSchema = new mongoose.Schema(
             min: 2,
             max: 20,
         },
-        username: String,
+        username: {
+            type: String,
+            required: true,
+          },
         location: {
             type: String,
             required: true,

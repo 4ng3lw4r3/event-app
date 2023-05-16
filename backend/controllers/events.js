@@ -8,12 +8,9 @@ export const createEvent = async (req, res) => {
         const { 
             userId, 
             title, 
-            username, 
             location, 
             description, 
-            picturePath, 
-            likes,
-            comments 
+            picturePath
         } = req.body;
 
         const user = await User.findById(userId);
