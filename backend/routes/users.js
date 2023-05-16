@@ -1,8 +1,8 @@
 import express from "express"
 import {
     getUser,
-    getUserEvents,
-    addRemoveEvent,
+    getUserFriends,
+    addRemoveFriend,
 } from "../controllers/users.js";
 import { verifyToken } from "../middleware/auth.js";
 
@@ -12,10 +12,10 @@ const router = express.Router();
 
 //prefix users
 router.get("/:id", verifyToken, getUser);
-router.get("/:id/events", verifyToken, getUserEvents);
+router.get("/:id/events", verifyToken, getUserFriends);
 
 // UPDATE
 
-router.patch("/:id/:Id", verifyToken, addRemoveEvent);
+router.patch("/:id/:Id", verifyToken, addRemoveFriend);
 
 export default router;

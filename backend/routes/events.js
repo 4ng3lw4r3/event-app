@@ -19,7 +19,7 @@ router.post("/events", verifyToken, createEvent);
 //prefix users
 
 router.get("/", verifyToken, getEvents);
-router.get("/:userId/events", verifyToken, getUserEvents)
+router.get("/:userId", verifyToken, getUserEvents)
 
 // UPDATE
 

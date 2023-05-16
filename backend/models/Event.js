@@ -21,7 +21,11 @@ const eventSchema = new mongoose.Schema(
             required: true,
             min: 2,
             max: 30,
-            unique: true,
+            // unique: true,
+        },
+        date: {
+            type: String,
+            required: true,
         },
         description: {
             type: String,

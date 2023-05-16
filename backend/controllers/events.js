@@ -7,7 +7,8 @@ export const createEvent = async (req, res) => {
     try {
         const { 
             userId, 
-            title, 
+            title,
+            date,
             location, 
             description, 
             picturePath
@@ -19,6 +20,7 @@ export const createEvent = async (req, res) => {
             userId,
             title,
             username: user.username,
+            date,
             location,
             description,
             userPicturePath: user.picturePath,
