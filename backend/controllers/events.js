@@ -10,6 +10,7 @@ export const createEvent = async (req, res) => {
             title,
             date,
             location, 
+            category,
             description, 
             picturePath
         } = req.body;
@@ -23,6 +24,7 @@ export const createEvent = async (req, res) => {
             date,
             location,
             description,
+            category,
             userPicturePath: user.picturePath,
             picturePath,
             likes: {},
@@ -62,6 +64,10 @@ export const getUserEvents = async (req, res) => {
         res.status(404).json({ message: err.message })
     }
 }
+
+  //GET USER FAVORITES
+
+
 
 // UPDATE
 

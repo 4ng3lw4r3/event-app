@@ -12,14 +12,12 @@ const router = express.Router();
 
 // CREATE
 
-router.post("/events", verifyToken, createEvent);
+router.post("/", verifyToken, createEvent);
 
 // READ
 
-//prefix users
-
 router.get("/", verifyToken, getEvents);
-router.get("/:userId", verifyToken, getUserEvents)
+router.get("/:userId/events", verifyToken, getUserEvents)
 
 // UPDATE
 

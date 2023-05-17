@@ -15,13 +15,17 @@ const eventSchema = new mongoose.Schema(
         username: {
             type: String,
             required: true,
-          },
+        },
+        category: {
+            type: String,
+            required: true,
+        },
         location: {
             type: String,
             required: true,
             min: 2,
             max: 30,
-            // unique: true,
+            unique: false,
         },
         date: {
             type: String,
@@ -38,7 +42,7 @@ const eventSchema = new mongoose.Schema(
         likes: {
             type: Map,
             of: Boolean,
-        },
+          },
         comments: {
             type: Array,
             default: [],
