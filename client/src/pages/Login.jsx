@@ -1,5 +1,4 @@
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material"
-import userlogin from '../assets/userlogin.svg'
 import LoginForm from "../components/LoginForm";
 
 const Login = () => {

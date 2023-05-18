@@ -65,7 +65,7 @@ const EventWidget = ({
         //   friendId={userId}
         friendId={eventUserId}
         username={username}
-        subtitle={location}
+        // subtitle={location}
         userPicturePath={userPicturePath}
       />
 

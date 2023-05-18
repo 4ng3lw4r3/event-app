@@ -37,6 +37,10 @@ const postEventSchema = yup.object({
     .string()
     .required("required")
     .min(3, "must be at least 3 characters long"),
+  category: yup
+    .string()
+    .required("required")
+    .min(3, "must be at least 3 characters long"),
   description: yup
     .string()
     .required("required")
@@ -48,6 +52,7 @@ const initialValuesPostEvent = {
   title: "",
   location: "",
   date: "",
+  category: "",
   description: "",
   picture: "",
 };
@@ -57,6 +62,7 @@ const PostEventWidget = ({ picturePath }) => {
   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
@@ -72,6 +78,7 @@ const PostEventWidget = ({ picturePath }) => {
     formData.append("userId", _id);
     formData.append("title", title);
     formData.append("date", date);
+    formData.append("category", category);
     formData.append("location", location);
     formData.append("description", description);
     if (image) {
@@ -88,10 +95,12 @@ const PostEventWidget = ({ picturePath }) => {
     });
 
     const events = await response.json();
+    
     dispatch(setEvents({ events }));
     setImage(null);
     setTitle("");
     setDate("");
+    setCategory("");
     setLocation("");
     setDescription("");
   };
@@ -115,9 +124,9 @@ const PostEventWidget = ({ picturePath }) => {
         </FlexBetween>
         <FlexBetween>
           <InputBase
-            // onSubmit={handleEvent}
-            // initialvalues={initialValuesPostEvent}
-            // validationschema={postEventSchema}
+            onSubmit={handleEvent}
+            initialvalues={initialValuesPostEvent}
+            validationschema={postEventSchema}
             label="Title"
             placeholder="What?"
             onChange={(e) => setTitle(e.target.value)}
@@ -131,9 +140,9 @@ const PostEventWidget = ({ picturePath }) => {
             }}
           />
           <InputBase
-            // onSubmit={handleEvent}
-            // initialValues={initialValuesPostEvent}
-            // validationSchema={postEventSchema}
+            onSubmit={handleEvent}
+            initialValues={initialValuesPostEvent}
+            validationSchema={postEventSchema}
             label="Date"
             placeholder="When?"
             onChange={(e) => setDate(e.target.value)}
@@ -146,10 +155,13 @@ const PostEventWidget = ({ picturePath }) => {
               padding: "1rem 2rem",
             }}
           />
-          <InputBase
-            // onSubmit={handleEvent}
-            // initialValues={initialValuesPostEvent}
-            // validationSchema={postEventSchema}
+        </FlexBetween>
+        <FlexBetween>
+        <InputBase
+            onSubmit={handleEvent}
+            initialValues={initialValuesPostEvent}
+            validationSchema={postEventSchema}
+            label="Location"
             placeholder="Where?"
             onChange={(e) => setLocation(e.target.value)}
             value={location}
@@ -160,11 +172,28 @@ const PostEventWidget = ({ picturePath }) => {
               padding: "1rem 2rem",
             }}
           />
+        <InputBase
+            onSubmit={handleEvent}
+            initialValues={initialValuesPostEvent}
+            validationSchema={postEventSchema}
+            label="Category"
+            placeholder="Choose"
+            onChange={(e) => setCategory(e.target.value)}
+            value={category}
+            name="title"
+            sx={{
+              width: "45%",
+              backgroundColor: palette.neutral.light,
+              borderRadius: "2rem",
+              padding: "1rem 2rem",
+            }}
+          />
         </FlexBetween>
         <InputBase
-          // onSubmit={handleEvent}
-          // initialValues={initialValuesPostEvent}
-          // validationSchema={postEventSchema}
+          onSubmit={handleEvent}
+          initialValues={initialValuesPostEvent}
+          validationSchema={postEventSchema}
+          label="Description"
           placeholder="Describe it"
           onChange={(e) => setDescription(e.target.value)}
           value={description}
@@ -258,8 +287,9 @@ const PostEventWidget = ({ picturePath }) => {
         )}
 
         <Button
-          disabled={!title || !description || !location || !date}
+          disabled={!title || !description || !location || !date || !category}
           onClick={handleEvent}
+          type="submit"
           sx={{
             color: palette.background.alt,
             backgroundColor: palette.primary.main,

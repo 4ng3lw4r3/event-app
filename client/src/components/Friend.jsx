@@ -6,7 +6,7 @@ import { setFriends } from "../state/index.js";
 import FlexBetween from "./FlexBetween.jsx";
 import UserImage from "./UserImage.jsx";
 
-const Friend = ({ friendId, username, subtitle, userPicturePath }) => {
+const Friend = ({ friendId, username, userPicturePath }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { _id } = useSelector((state) => state.user);
@@ -61,9 +61,9 @@ const Friend = ({ friendId, username, subtitle, userPicturePath }) => {
           >
             {username}
           </Typography>
-          <Typography color={medium} fontSize="0.75rem">
+          {/* <Typography color={medium} fontSize="0.75rem">
             {subtitle}
-          </Typography>
+          </Typography> */}
         </Box>
       </FlexBetween>
       <IconButton
