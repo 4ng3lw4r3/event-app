@@ -20,6 +20,7 @@ import {
   Menu,
   Close,
 } from "@mui/icons-material";
+import CategoryIcon from '@mui/icons-material/Category';
 import { useDispatch, useSelector } from "react-redux";
 // import { setMode, setLogout } from "state";
 import { useNavigate } from "react-router-dom";
@@ -67,27 +68,23 @@ import Tag from "../components/TagButton"
             ) : (
               <LightMode sx={{ color: dark, fontSize: "25px" }} />
             )}
-          <IconButton onClick={() => onClick('Fantasy life')} sx={{ fontSize: "25px" }}> Fantasy Life</IconButton>
-          <IconButton onClick={() => onClick('New age')} sx={{ fontSize: "25px" }}> New Age</IconButton>
-          <IconButton onClick={() => onClick('Concert')} sx={{ fontSize: "25px" }}> Concert</IconButton>
-          <IconButton onClick={() => onClick('Theater')} sx={{ fontSize: "25px" }}> Theater</IconButton>
-          <IconButton onClick={() => onClick('Rave')} sx={{ fontSize: "25px" }}> Rave</IconButton>
-          <IconButton onClick={() => onClick('Club')} sx={{ fontSize: "25px" }}> Club</IconButton>
-          <IconButton onClick={() => onClick('For animals')} sx={{ fontSize: "25px" }}> For Animals</IconButton>
+          <IconButton onClick={() => onClick('Fantasy life')} sx={{ fontSize: "20px" }}> Fantasy Life</IconButton>
+          <IconButton onClick={() => onClick('New age')} sx={{ fontSize: "20px" }}> New Age</IconButton>
+          <IconButton onClick={() => onClick('For animals')} sx={{ fontSize: "20px" }}> For Animals</IconButton>
+          <IconButton onClick={() => onClick('Concert')} sx={{ fontSize: "20px" }}> Concert</IconButton>
+          <IconButton onClick={() => onClick('Theater')} sx={{ fontSize: "20px" }}> Theater</IconButton>
+          <IconButton onClick={() => onClick('Rave')} sx={{ fontSize: "20px" }}> Rave</IconButton>
+          <IconButton onClick={() => onClick('Club')} sx={{ fontSize: "20px" }}> Club</IconButton>
         </FlexBetween>
       ) : (
         <IconButton
           onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
         >
-          <Menu />
+          <CategoryIcon />
         </IconButton>
       )}
 
       <FlexBetween gap="1.75rem">
-        {/* SEARCH BAR */}
-        {/* SEARCH BAR */}
-        {/* SEARCH BAR */}
-
         <FlexBetween
           backgroundColor={neutralLight}
           borderRadius="9px"
@@ -139,14 +136,16 @@ import Tag from "../components/TagButton"
             alignItems="center"
             gap="3rem"
           >
-            <IconButton onClick={onClick('Fantasy Life')} sx={{ fontSize: "25px" }}> Fantasy Life</IconButton>
-            <IconButton sx={{ fontSize: "25px" }}> New Age</IconButton>
-            <IconButton sx={{ fontSize: "25px" }}> Concert</IconButton>
-            <IconButton sx={{ fontSize: "25px" }}> Theater</IconButton>
-            <IconButton sx={{ fontSize: "25px" }}> Rave</IconButton>
-            <IconButton sx={{ fontSize: "25px" }}> Club</IconButton>
-            <IconButton sx={{ fontSize: "25px" }}> For Animals</IconButton>
+          <IconButton onClick={() => onClick('Fantasy life')} sx={{ fontSize: "20px" }}> Fantasy Life</IconButton>
+          <IconButton onClick={() => onClick('New age')} sx={{ fontSize: "20px" }}> New Age</IconButton>
+          <IconButton onClick={() => onClick('For animals')} sx={{ fontSize: "20px" }}> For Animals</IconButton>
+          <IconButton onClick={() => onClick('Concert')} sx={{ fontSize: "20px" }}> Concert</IconButton>
+          <IconButton onClick={() => onClick('Theater')} sx={{ fontSize: "20px" }}> Theater</IconButton>
+          <IconButton onClick={() => onClick('Rave')} sx={{ fontSize: "20px" }}> Rave</IconButton>
+          <IconButton onClick={() => onClick('Club')} sx={{ fontSize: "20px" }}> Club</IconButton>
           </FlexBetween>
+
+          
         </Box>
       )}
     </FlexBetween>

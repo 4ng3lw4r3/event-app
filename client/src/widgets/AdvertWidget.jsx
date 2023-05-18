@@ -26,7 +26,7 @@ const AdvertWidget = () => {
       />
       <FlexBetween>
         <Typography color={main}>Angelware</Typography>
-        <Typography color={medium}>algelware.com</Typography>
+        <Typography color={medium}>angelware.com</Typography>
       </FlexBetween>
       <Typography color={medium} m="0.5rem 0">
         Goddess Angelware embodies grace, beauty, and divine energy, radiating
