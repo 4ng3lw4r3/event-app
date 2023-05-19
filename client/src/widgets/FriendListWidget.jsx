@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFriends } from "../state/index.js";
 
-const FriendListWidget = ({ userId, username }) => {
+const FriendListWidget = ({ _id, userId, subtitle, username }) => {
   const dispatch = useDispatch();
   const { palette } = useTheme();
   const token = useSelector((state) => state.token);
@@ -42,9 +42,9 @@ const FriendListWidget = ({ userId, username }) => {
           <Friend
             key={friend._id}
             friendId={friend._id}
-            username={username}
-            // subtitle={friend.location}
-            // userPicturePath={friend.picturePath}
+            username={friend.username}
+            // subtitle={friend.events}
+            userPicturePath={friend.picturePath}
           />
         ))}
       </Box>
