@@ -24,8 +24,8 @@ const EventsWidget = ({ userId, category, isProfile = false }) => {
           // const data = await response.json();
           let data = await response.json();
           if (category) data = data.filter((event) => event.category == category);
-          const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-          dispatch(setEvents({ events: sortedData }));
+          // const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+          dispatch(setEvents({ events: data }));
         };
       
         const getUserEvents = async () => {

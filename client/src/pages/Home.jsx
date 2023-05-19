@@ -17,20 +17,18 @@ const Home = () => {
   const category = searchParams.get("category");
   const [showContent, setShowContent] = useState(false);
 
-  const [searchTerm, setSearchTerm] = useState('');
-  
-    // Callback function to receive child state
-    const handleChildState = (state) => {
-      setSearchTerm(state);
-      setShowContent(!showContent);
+  const [searchTerm, setSearchTerm] = useState("");
 
-    };
-
+  // Callback function to receive child state
+  const handleChildState = (state) => {
+    setSearchTerm(state);
+    setShowContent(!showContent);
+  };
 
   return (
     <Box>
       <Navbar />
-      <SearchBar onStateChange={handleChildState}/>
+      <SearchBar onStateChange={handleChildState} />
 
       <Box
         width="100%"
@@ -50,7 +48,14 @@ const Home = () => {
           {/* <EventsWidget userId={_id} /> */}
           {/* <SearchedEvent/> */}
 
-          <EventsWidget userId={_id} category={searchTerm} />
+          <div style={{ display: "flex", flexDirection: "column-reverse" }}>
+            <EventsWidget
+              // display="flex"
+              // flexDirection="column-reverse"
+              userId={_id}
+              category={searchTerm}
+            />
+          </div>
         </Box>
 
         {isNonMobileScreens && (
