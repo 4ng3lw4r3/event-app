@@ -17,7 +17,7 @@ const Login = () => {
         fontSize="32px"
         color="primary"
       >
-          ✧⭐Queen Events⭐✧
+          ✧⭐Qu33n 3v3ntSs⭐✧
       </Typography>
       </Box>
 

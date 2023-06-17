@@ -1,11 +1,8 @@
-import {
-  ManageAccountsOutlined,
-  EditOutlined,
-} from "@mui/icons-material";
-import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
-import Diversity1Icon from '@mui/icons-material/Diversity1';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import LanguageIcon from '@mui/icons-material/Language';
+import { ManageAccountsOutlined, EditOutlined } from "@mui/icons-material";
+import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+import Diversity1Icon from "@mui/icons-material/Diversity1";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import LanguageIcon from "@mui/icons-material/Language";
 import { Box, Typography, Divider, useTheme } from "@mui/material";
 import UserImage from "../components/UserImage";
 import FlexBetween from "../components/FlexBetween";
@@ -13,10 +10,7 @@ import WidgetWrapper from "../components/WidgetWrapper";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import twitter from "../assets/twitter.svg";
-import link from "../assets/link.jpg";
-import hellookitty from "../assets/hellookitty.jpg"
-
+import hellookitty from "../assets/hellookitty.jpg";
 
 const UserWidget = ({ userId }) => {
   const [user, setUser] = useState(null);
@@ -39,25 +33,24 @@ const UserWidget = ({ userId }) => {
 
   useEffect(() => {
     getUser();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!user) {
     return null;
   }
 
-  const { username, places, postedEvents, events, createdAt, picturePath } = user;
+  const { username, places, postedEvents, events, createdAt, picturePath } =
+    user;
 
   return (
     <WidgetWrapper>
-      {/* FIRST ROW */}
       <FlexBetween
         gap="0.5rem"
         pb="1.1rem"
         onClick={() => navigate(`/profile/${userId}`)}
       >
         <FlexBetween gap="1rem">
-          {/* <UserImage image={picturePath}/> */}
-          <UserImage src={hellookitty}/>
+          <UserImage src={hellookitty} />
           <Box>
             <Typography
               variant="h4"
@@ -82,7 +75,6 @@ const UserWidget = ({ userId }) => {
 
       <Divider />
 
-      {/* SECOND ROW */}
       <Box p="1rem 0">
         <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
           <Diversity1Icon fontSize="large" sx={{ color: main }} />
@@ -96,7 +88,6 @@ const UserWidget = ({ userId }) => {
 
       <Divider />
 
-      {/* THIRD ROW */}
       <Box p="1rem 0">
         <FlexBetween mb="0.5rem">
           <Typography color={medium}>Who's here</Typography>
@@ -114,7 +105,6 @@ const UserWidget = ({ userId }) => {
 
       <Divider />
 
-      {/* FOURTH ROW */}
       <Box p="1rem 0">
         <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
           More
@@ -122,14 +112,7 @@ const UserWidget = ({ userId }) => {
 
         <FlexBetween gap="1rem" mb="0.5rem">
           <FlexBetween gap="1rem">
-          <TwitterIcon/>
-            {/* <img
-              style={{ objectFit: "cover", borderRadius: "20%" }}
-              width="40rem"
-              height="40rem"
-              src={twitter}
-              alt="twitter"
-            /> */}
+            <TwitterIcon />
             <Box>
               <Typography color={main} fontWeight="500">
                 Twitter
@@ -142,14 +125,7 @@ const UserWidget = ({ userId }) => {
 
         <FlexBetween gap="1rem">
           <FlexBetween gap="1rem">
-          <LanguageIcon/>
-            {/* <img
-              style={{ objectFit: "cover", borderRadius: "20%" }}
-              width="40rem"
-              height="40rem"
-              src={link}
-              alt="website"
-            /> */}
+            <LanguageIcon />
             <Box>
               <Typography color={main} fontWeight="500">
                 Website

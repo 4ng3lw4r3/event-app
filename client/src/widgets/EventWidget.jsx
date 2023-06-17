@@ -9,7 +9,7 @@ import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
 import Friend from "../components/Friend";
 import FlexBetween from "../components/FlexBetween";
 import WidgetWrapper from "../components/WidgetWrapper";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -19,14 +19,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import CloseIcon from "@mui/icons-material/Close";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import { setEvent, setEvents } from "../state/index.js";
-import  { SearchedEvent }  from "../components/SearchedEvent";
-
+import { setEvent } from "../state/index.js";
 
 const EventWidget = ({
-  results,
   eventId,
   eventUserId,
   username,
@@ -35,7 +30,6 @@ const EventWidget = ({
   date,
   description,
   location,
-  picturePath,
   userPicturePath,
   likes,
   comments,
@@ -43,21 +37,13 @@ const EventWidget = ({
   const [isComments, setIsComments] = useState(false);
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
-  const events = useSelector((state) => state.token);
-  const { _id } = useSelector((state) => state.user); //i backend
   const loggedInUserId = useSelector((state) => state.user._id);
   const isLiked = Boolean(likes[loggedInUserId]);
   const likeCount = Object.keys(likes).length;
   const [open, setOpen] = React.useState(false);
-
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const primary = palette.primary.main;
-
-
-  // useEffect(() => {
-  //   dispatch(setEvents())
-  // }, [events]);
 
   const patchLike = async () => {
     const response = await fetch(
@@ -84,6 +70,7 @@ const EventWidget = ({
       if (response.ok) {
         setOpen(true);
         console.log("Event deleted successfully");
+        console.log(eventId);
       } else {
         console.log("Error deleting event");
       }
@@ -106,7 +93,7 @@ const EventWidget = ({
 
   const action = (
     <React.Fragment>
-      <Button color="secondary" size="small" onClick={deleteEvent}>
+      <Button color="primary" size="small" onClick={deleteEvent}>
         Delete
       </Button>
       <IconButton
@@ -153,15 +140,6 @@ const EventWidget = ({
       <Typography color={main} sx={{ mt: "1rem" }}>
         {description}
       </Typography>
-      {picturePath && (
-        <img
-          width="100%"
-          height="auto"
-          alt="event"
-          style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`http://localhost:3001/assets/${picturePath}`}
-        />
-      )}
 
       <Snackbar
         open={open}
@@ -204,16 +182,9 @@ const EventWidget = ({
           </FlexBetween>
 
           <FlexBetween gap="0.3rem">
-          <Link
-          to={{ pathname: `` }}
-          >
-            <IconButton
-            // onClick={updateEvent}
-            >
+            <IconButton>
               <EditIcon />
             </IconButton>
-            </Link>
-
           </FlexBetween>
         </FlexBetween>
       </FlexBetween>

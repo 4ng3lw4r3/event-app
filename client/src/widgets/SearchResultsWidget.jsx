@@ -1,39 +1,22 @@
-import * as React from "react";
-import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
-import FlexBetween from "../components/FlexBetween";
-import WidgetWrapper from "../components/WidgetWrapper";
+import React from "react";
 import SearchedEventWidget from "./SearchedEventWidget";
 
-const SearchResultsWidget = ({
-  _id,
-  results,
-  title,
-  location,
-  titleResults,
-  locationResults,
-  friendId,
-  subtitle,
-  eventId,
-  eventUserId,
-  username,
-  category,
-  date,
-  description,
-  picturePath,
-  userPicturePath,
-  likes,
-  comments,
-}) => {
-  console.log(results); //I'm baddest of them all
-
-  const { palette } = useTheme();
-
+const SearchResultsWidget = ({ results }) => {
   return (
-    <WidgetWrapper m="2rem 0">
-      <FlexBetween>
-        <SearchedEventWidget key={_id} results={results} />
-      </FlexBetween>
-    </WidgetWrapper>
+    <>
+        {results.map((result, index) => (
+          <SearchedEventWidget
+            key={index}
+            result={result}
+            userPicturePath={result.userPicturePath}
+            title={result.title}
+            location={result.location}
+            category={result.category}
+            date={result.date}
+            description={result.description}
+          />
+        ))}
+    </>
   );
 };
 

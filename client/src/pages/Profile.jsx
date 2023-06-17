@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/navbar";
 import FriendListWidget from "../widgets/FriendListWidget";
-import PostEventWidget from "../widgets/PostEventWidget";
 import EventsWidget from "../widgets/EventsWidget";
 import UserWidget from "../widgets/UserWidget";
 
@@ -25,7 +24,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     getUser();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!user) return null;
 

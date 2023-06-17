@@ -72,7 +72,7 @@ const categories = [
   { label: "Club" },
 ];
 
-const PostEventWidget = ({ picturePath }) => {
+const PostEventWidget = () => {
   const dispatch = useDispatch();
   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState(null);
@@ -92,19 +92,13 @@ const PostEventWidget = ({ picturePath }) => {
     setDate(date);
   };
 
-  const handleConvertToString = () => {
-    const dateString = date.toISOString();
-    console.log(dateString);
+  const handleOptionChange = (event, value) => {
+    if (value) {
+      setCategory(value.label);
+    } else {
+      setCategory("");
+    }
   };
-
-const handleOptionChange = (event, value) => {
-  if (value) {
-    setCategory(value.label);
-  } else {
-    setCategory("");
-  }
-};
-
 
   const handleEvent = async () => {
     const formData = new FormData();
@@ -149,7 +143,6 @@ const handleOptionChange = (event, value) => {
         }}
       >
         <FlexBetween>
-          {/* <UserImage image={picturePath} /> */}
           <UserImage img src={hellookitty} />
           <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
             Where are we going next?
@@ -174,14 +167,11 @@ const handleOptionChange = (event, value) => {
               onSubmit={handleEvent}
               label="Date"
               placeholder="When?"
-              // onChange={(e) => setDate(e.target.value)}
               onChange={handleDateChange}
               value={date}
               sx={{
                 width: "48%",
-                // backgroundColor: palette.neutral.light,
                 borderRadius: "2rem",
-                // padding: "1rem 0.5rem",
               }}
             />
           </LocalizationProvider>

@@ -1,17 +1,13 @@
 import Navbar from "../components/Navbar";
 import { Box, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import UserWidget from "../widgets/UserWidget";
 import PostEventWidget from "../widgets/PostEventWidget";
 import EventsWidget from "../widgets/EventsWidget";
 import AdvertWidget from "../widgets/AdvertWidget";
 import FriendListWidget from "../widgets/FriendListWidget";
 import CategoriesNavbar from "../components/CategoriesNavbar";
-// import SearchBar from "../components/SearchBar"; SITO REKIA
-// import SearchedEvent from "../components/SearchedEvent.jsx";
-
-//
 import SearchBar from "../components/SearchBar";
 import SearchResultsWidget from "../widgets/SearchResultsWidget";
 
@@ -20,13 +16,8 @@ const Home = () => {
   const { _id, picturePath } = useSelector((state) => state.user);
   const [showContent, setShowContent] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-
-  //
-  const [locationResults, setLocationResults] = useState([]);
-  const [titleResults, setTitleResults] = useState([]);
   const [results, setResults] = useState([]);
 
-  // Callback function to receive child state
   const handleChildState = (state) => {
     setSearchTerm(state);
     setShowContent(!showContent);
@@ -36,12 +27,7 @@ const Home = () => {
     <Box>
       <Navbar />
       <CategoriesNavbar onStateChange={handleChildState} />
-
-      <SearchBar 
-      setResults={setResults} />
-
-
-
+      <SearchBar setResults={setResults} />
       <Box
         width="100%"
         padding="2rem 6%"
@@ -50,7 +36,9 @@ const Home = () => {
         justifyContent="space-between"
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-        {results && results.length > 0 && <SearchResultsWidget results={results} />}
+          {results && results.length > 0 && (
+            <SearchResultsWidget results={results} />
+          )}
 
           <UserWidget userId={_id} picturePath={picturePath} />
         </Box>
@@ -58,16 +46,14 @@ const Home = () => {
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-
-{results && results.length > 0 && <SearchResultsWidget results={results} />}
-
+          {results && results.length > 0 && (
+            <SearchResultsWidget results={results} />
+          )}
 
           <PostEventWidget picturePath={picturePath} />
 
           <div style={{ display: "flex", flexDirection: "column-reverse" }}>
             <EventsWidget
-              // display="flex"
-              // flexDirection="column-reverse"
               userId={_id}
               category={searchTerm}
             />

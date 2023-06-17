@@ -25,7 +25,7 @@ const FriendListWidget = ({ _id, userId, subtitle, username }) => {
 
   useEffect(() => {
     getFriends();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <WidgetWrapper>
