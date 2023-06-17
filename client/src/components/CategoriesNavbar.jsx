@@ -18,10 +18,14 @@ function CategoriesNavbar({ onStateChange }) {
   };
 
   return (
+    <FlexBetween  backgroundColor={alt}>
+
     <div
-      style={{ display: "flex", alignItems: "left", backgroundColor: "white" }}
+      style={{ display: "flex", alignItems: "left" }}
     >
-      <FlexBetween padding="1rem 6%" backgroundColor={alt}>
+
+
+      <FlexBetween padding="1rem 11%" backgroundColor={alt}>
         {/* DESKTOP NAV */}
         <IconButton
           onClick={() => navigate("/events")}
@@ -222,6 +226,8 @@ function CategoriesNavbar({ onStateChange }) {
         )}
       </FlexBetween>
     </div>
+    </FlexBetween>
+
   );
 }
 

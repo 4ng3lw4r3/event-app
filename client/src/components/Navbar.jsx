@@ -23,7 +23,7 @@ import {
   Close,
 } from "@mui/icons-material";
 
-function Navbar({ onStateChange }) {
+function Navbar() {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
