@@ -22,9 +22,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { setEvent, setEvents } from "../state/index.js";
+import  { SearchedEvent }  from "../components/SearchedEvent";
 
 
 const EventWidget = ({
+  results,
   eventId,
   eventUserId,
   username,

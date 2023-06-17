@@ -5,8 +5,7 @@ import React from 'react'
   // gal sitas turi but kuriame as mapinu? o 
   //ta widgeta i kita widgeta kur visi renginiai rasti.
 
-export const SearchedEvent = ({ result, username, title,
-   }) => {
+export const SearchedEvent = ({ result }) => {
   console.log(result)
 
   return (
@@ -15,9 +14,6 @@ export const SearchedEvent = ({ result, username, title,
     onClick={(e) => alert(`You selected ${result}!`)}
   >
     {result}
-    {username}username
-
-    
   </div>
   )
 }
