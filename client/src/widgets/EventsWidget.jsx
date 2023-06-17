@@ -83,13 +83,8 @@ const EventsWidget = ({ userId, category, isProfile = false }) => {
                     likes={likes}
                     comments={comments}
                   />
-
-                  
                 )
               )}
-
-
-
             </>
           );
         };

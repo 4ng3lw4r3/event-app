@@ -20,9 +20,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { setEvent, setEvents } from "../state/index.js";
-import { SearchedEvent } from "../components/SearchedEvent";
+import SearchedEvent from "../components/SearchedEvent";
 import WidgetWrapper from "../components/WidgetWrapper";
-import Friend from "../components/Friend";
 import UserImage from "../components/UserImage";
 
 
@@ -46,56 +45,51 @@ const SearchResultsWidget = ({
 
 }) => {
     console.log(results) //I'm baddest of them all
-
-    const [isComments, setIsComments] = useState(false);
-    const dispatch = useDispatch();
-    const token = useSelector((state) => state.token);
-    const events = useSelector((state) => state.token);
-    const friends = useSelector((state) => state.user.friends);
-    const { _id } = useSelector((state) => state.user); //i backend
-    const [open, setOpen] = React.useState(false);
+    // console.log(titleResults) //I'm baddest of them all
+    // console.log("Title:", title);
+    // console.log("Location:", location);
 
     const { palette } = useTheme();
     const main = palette.neutral.main;
-    const primary = palette.primary.main;
     const medium = palette.neutral.medium;
 
   return (
     <WidgetWrapper m="2rem 0">
 <FlexBetween>
 
-
 {/* <div>
-      {results.map((result, _id) => {
-        return <SearchedEvent result={result.title} key={_id} />;
-      })}
+  title
+{title}
     </div>
 <div>
   location
 {location}
-    </div>   */}
+    </div>  */}
 
 
     <div className="results-list">
-      {results.map((result, _id) => {
-        return <SearchedEvent result={result.category} key={_id} />;
+      {results.map((result, id) => {
+        return <SearchedEvent result={result.title} key={id} />;
       })}
     </div>
-<div>
-      {results.map((result, _id) => {
-        return <SearchedEvent result={result.username} key={_id} />;
+
+
+{/* <div className="results-list">
+      {titleResults.map((result, id) => {
+        return <SearchedEvent result={result.title} key={id} />;
+      })}
+    </div> */}
+
+{/* <div className="results-list">
+      {results.map((result, id) => {
+        return <SearchResult result={result.title} key={id} />;
       })}
     </div>
-<div>
-      {results.map((result, _id) => {
-        return <SearchedEvent result={result.date} key={_id} />;
+<div className="results-list">
+      {results.map((result, id) => {
+        return <SearchResult result={result.location} key={id} />;
       })}
-    </div>
-<div>
-      {results.map((result, _id) => {
-        return <SearchedEvent result={result.location} key={_id} />;
-      })}
-    </div> 
+    </div> */}
 
 
 <FlexBetween gap="1rem">
@@ -127,9 +121,7 @@ const SearchResultsWidget = ({
         variant="h5"
         sx={{ mt: "3rem", mb: "1rem" }}
       >
-           {results.map((result, _id) => {
-        return <SearchedEvent result={result.title} key={_id} />;
-      })}
+
         {title}
       </Typography>
       <FlexBetween>
