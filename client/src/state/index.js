@@ -38,7 +38,7 @@ export const authSlice = createSlice({
                 return event;
             });
             state.events = updatedEvents;
-        }
+        },
     }
 })
 

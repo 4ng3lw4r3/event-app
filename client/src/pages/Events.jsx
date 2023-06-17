@@ -2,11 +2,8 @@ import Navbar from "../components/Navbar";
 import { Box, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import UserWidget from "../widgets/UserWidget";
-import PostEventWidget from "../widgets/PostEventWidget";
+
 import EventsWidget from "../widgets/EventsWidget";
-import AdvertWidget from "../widgets/AdvertWidget";
-import FriendListWidget from "../widgets/FriendListWidget";
 import CategoriesNavbar from "../components/CategoriesNavbar";
 // import SearchBar from "../components/SearchBar"; SITO REKIA
 // import SearchedEvent from "../components/SearchedEvent.jsx";
@@ -15,9 +12,11 @@ import CategoriesNavbar from "../components/CategoriesNavbar";
 import SearchBar from "../components/SearchBar";
 import SearchResultsWidget from "../widgets/SearchResultsWidget";
 
-const Home = () => {
+const Events = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const { _id, picturePath } = useSelector((state) => state.user);
+  // const searchParams = new URLSearchParams(window.location.search);
+  // const category = searchParams.get("category");
   const [showContent, setShowContent] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -33,57 +32,94 @@ const Home = () => {
   };
 
   return (
+
+ 
+
     <Box>
+
+
       <Navbar />
       <CategoriesNavbar onStateChange={handleChildState} />
+      {/* SITO REIKIA!!pries keitima i navbar */}
+      {/* <SearchBar onStateChange={handleChildState} /> */}
 
-      <SearchBar 
-      setResults={setResults} />
+      {/* <SearchBar 
+      setLocationResults={setLocationResults} 
+      setTitleResults={setTitleResults}
+      /> */}
+
+<SearchBar setResults={setResults} setLocationResults={setLocationResults} setTitleResults={setTitleResults} />
+
+
 
 
 
       <Box
         width="100%"
         padding="2rem 6%"
-        display={isNonMobileScreens ? "flex" : "block"}
+        // display={isNonMobileScreens ? "flex" : "block"}
+        display="flex"
+        jus
         gap="0.5rem"
         justifyContent="space-between"
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-        {results && results.length > 0 && <SearchResultsWidget results={results} />}
 
-          <UserWidget userId={_id} picturePath={picturePath} />
+        {/* {locationResults && locationResults.length > 0 && 
+        <SearchResultsWidget 
+        locationResults={locationResults} 
+        />} */}
+
+        {/* {titleResults && titleResults.length > 0 && 
+        <SearchResultsWidget 
+        titleResults={titleResults} 
+        />} */}
+
+
+              {results && results.length > 0 && 
+        <SearchResultsWidget results={results} />}
+
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
 
-{results && results.length > 0 && <SearchResultsWidget results={results} />}
 
 
-          <PostEventWidget picturePath={picturePath} />
+          {/* <EventsWidget userId={_id} /> */}
+          {/* <SearchedEvent/> */}
 
-          <div style={{ display: "flex", flexDirection: "column-reverse" }}>
+
+
+
+          {/* <div style={{ display: "flex", flexDirection: "column-reverse" }}> */}
             <EventsWidget
               // display="flex"
               // flexDirection="column-reverse"
               userId={_id}
               category={searchTerm}
             />
-          </div>
+          {/* </div> */}
         </Box>
 
         {isNonMobileScreens && (
           <Box flexBasis="26%">
-            <AdvertWidget />
             <Box m="2rem 0" />
-            <FriendListWidget userId={_id} />
           </Box>
         )}
       </Box>
-    </Box>
+
+     
+
+
+     </Box>
+
   );
+
+
 };
 
-export default Home;
+
+
+export default Events;

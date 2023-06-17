@@ -68,8 +68,40 @@ export const getUserEvents = async (req, res) => {
   //GET USER FAVORITES
 
 
-
 // UPDATE
+
+export const updateEvent = async (req, res) => {
+    try {
+      const eventId = req.params.id;
+      const { 
+        title, 
+        category, 
+        date, 
+        description, 
+        location, 
+        picturePath
+     } = req.body;
+  
+      const event = await Event.findById(eventId);
+  
+      // Update the event properties
+      event.title = title;
+      event.category = category;
+      event.date = date;
+      event.description = description;
+      event.location = location;
+      event.picturePath = picturePath;
+  
+      // Save the updated event
+      const updatedEvent = await event.save();
+  
+      res.json(updatedEvent);
+    } catch (error) {
+      console.log("Error updating event:", error);
+      res.status(500).json({ error: "Failed to update the event." });
+    }
+  };
+
 
 export const likeEvent = async (req, res) => {
     try {
@@ -99,5 +131,14 @@ export const likeEvent = async (req, res) => {
     }
 }
 
+// DELETE
 
-
+export const deleteEvent = async (req, res) => {
+  try {
+    const eventId = req.params.id;
+    await Event.findByIdAndDelete(eventId);
+    res.status(200).json({ message: 'Event deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while deleting the event' });
+  }
+};

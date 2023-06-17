@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
+import Footer from "./components/Footer";
+import Events from "./pages/Events"
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -24,7 +26,9 @@ function App() {
               <Route path="/" element={<Login />} />
               <Route path="/home" element={isAuth ? <Home /> : <Navigate to="/" /> } />
               <Route path="/profile/:userId" element={isAuth ?<Profile /> : <Navigate to="/" /> } />
+              <Route path="/events" element={isAuth ? <Events /> : <Navigate to="/" /> } />
             </Routes>
+            <Footer />
           </ThemeProvider>
         </BrowserRouter>
       </div>

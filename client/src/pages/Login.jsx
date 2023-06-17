@@ -17,7 +17,7 @@ const Login = () => {
         fontSize="32px"
         color="primary"
       >
-        Let's go out°•*⁀➷•
+          ✧⭐Queen Events⭐✧
       </Typography>
       </Box>
 
@@ -33,7 +33,7 @@ const Login = () => {
           variant="h5"
           sx={{ mb: "1.5rem" }}
           >
-           ...and have some fun?
+           ...are you ready? But only if you are:
 
           </Typography>
           <LoginForm />

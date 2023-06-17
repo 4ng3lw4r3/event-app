@@ -4,6 +4,8 @@ import {
     getEvents,
     getUserEvents,
     likeEvent,
+    updateEvent,
+    deleteEvent,
 } from "../controllers/events.js";
 import { verifyToken } from "../middleware/auth.js";
 
@@ -19,8 +21,17 @@ router.post("/", verifyToken, createEvent);
 router.get("/", verifyToken, getEvents);
 router.get("/:userId/events", verifyToken, getUserEvents)
 
+// SEARCH 
+
+
 // UPDATE
 
 router.patch("/:id/like", verifyToken, likeEvent);
+router.patch("/:id", verifyToken, updateEvent)
+
+// DELETE
+
+router.delete("/:id", verifyToken, deleteEvent)
+
 
 export default router;

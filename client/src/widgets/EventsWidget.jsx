@@ -4,17 +4,15 @@ import { setEvents } from "../state/index.js"
 import EventWidget from "./EventWidget.jsx"
 import { Divider, useTheme } from "@mui/material";
 
+
 const EventsWidget = ({ userId, category, isProfile = false }) => {
     const dispatch = useDispatch()
     const events = useSelector((state) => state.events);
     const token = useSelector((state) =>state.token)
     const { palette } = useTheme();
     const light = palette.neutral.light;
-    // const [searchTerm, setSearchTerm] = useState('');
+    
 
-    // const handleChildState = (state) => {
-    //   setSearchTerm(state);
-    // };
 
     const getEvents = async (category) => {
         const response = await fetch("http://localhost:3001/events", {
@@ -39,6 +37,8 @@ const EventsWidget = ({ userId, category, isProfile = false }) => {
           const data = await response.json();
           dispatch(setEvents({ events: data }));
         };
+
+        
 
         useEffect(() => {
           if (isProfile) {
@@ -83,8 +83,13 @@ const EventsWidget = ({ userId, category, isProfile = false }) => {
                     likes={likes}
                     comments={comments}
                   />
+
+                  
                 )
               )}
+
+
+
             </>
           );
         };

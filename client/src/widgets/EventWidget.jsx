@@ -1,3 +1,4 @@
+import * as React from "react";
 import {
   ChatBubbleOutlineOutlined,
   FavoriteBorderOutlined,
@@ -10,14 +11,20 @@ import FlexBetween from "../components/FlexBetween";
 import WidgetWrapper from "../components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setEvent } from "../state/index.js";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CategoryIcon from "@mui/icons-material/Category";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditIcon from "@mui/icons-material/Edit";
+import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import CloseIcon from "@mui/icons-material/Close";
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { setEvent, setEvents } from "../state/index.js";
+
 
 const EventWidget = ({
-  // _id,
-  // userId,
   eventId,
   eventUserId,
   username,
@@ -34,16 +41,23 @@ const EventWidget = ({
   const [isComments, setIsComments] = useState(false);
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
+  const events = useSelector((state) => state.token);
+  const { _id } = useSelector((state) => state.user); //i backend
   const loggedInUserId = useSelector((state) => state.user._id);
   const isLiked = Boolean(likes[loggedInUserId]);
   const likeCount = Object.keys(likes).length;
+  const [open, setOpen] = React.useState(false);
 
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const primary = palette.primary.main;
 
+
+  // useEffect(() => {
+  //   dispatch(setEvents())
+  // }, [events]);
+
   const patchLike = async () => {
-    //   const response = await fetch(`http://localhost:3001/events/${_id}/like`, {
     const response = await fetch(
       `http://localhost:3001/events/${eventId}/like`,
       {
@@ -59,13 +73,56 @@ const EventWidget = ({
     dispatch(setEvent({ event: updatedEvent }));
   };
 
+  const deleteEvent = async () => {
+    try {
+      const response = await fetch(`http://localhost:3001/events/${eventId}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (response.ok) {
+        setOpen(true);
+        console.log("Event deleted successfully");
+      } else {
+        console.log("Error deleting event");
+      }
+    } catch (error) {
+      console.log("Error deleting event:", error);
+    }
+  };
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={deleteEvent}>
+        Delete
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
   return (
     <WidgetWrapper m="2rem 0">
       <Friend
-        //   friendId={userId}
         friendId={eventUserId}
         username={username}
-        // subtitle={location}
         userPicturePath={userPicturePath}
       />
 
@@ -73,7 +130,7 @@ const EventWidget = ({
         color={main}
         fontWeight="400"
         variant="h5"
-        sx={{ mt: "3rem", mb: "1rem"}}
+        sx={{ mt: "3rem", mb: "1rem" }}
       >
         {title}
       </Typography>
@@ -104,6 +161,14 @@ const EventWidget = ({
         />
       )}
 
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Are you sure? This cannot be undone. Refresh the page after lol"
+        action={action}
+      />
+
       <FlexBetween mt="0.25rem">
         <FlexBetween gap="1rem">
           <FlexBetween gap="0.3rem">
@@ -125,10 +190,32 @@ const EventWidget = ({
           </FlexBetween>
         </FlexBetween>
 
-        <IconButton>
-          <ShareOutlined />
-        </IconButton>
+        <FlexBetween>
+          <IconButton>
+            <ShareOutlined />
+          </IconButton>
+
+          <FlexBetween>
+            <IconButton onClick={handleClick}>
+              <DeleteOutlineIcon />
+            </IconButton>
+          </FlexBetween>
+
+          <FlexBetween gap="0.3rem">
+          <Link
+          to={{ pathname: `` }}
+          >
+            <IconButton
+            // onClick={updateEvent}
+            >
+              <EditIcon />
+            </IconButton>
+            </Link>
+
+          </FlexBetween>
+        </FlexBetween>
       </FlexBetween>
+
       {isComments && (
         <Box mt="0.5rem">
           {comments.map((comment, i) => (

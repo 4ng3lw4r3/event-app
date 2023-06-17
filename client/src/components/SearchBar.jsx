@@ -1,58 +1,101 @@
-import { useState, useEffect, useRef } from "react";
+import * as React from 'react';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import { useState, useRef } from "react";
 import {
-  Box,
   IconButton,
   InputBase,
-  Typography,
-  Select,
-  MenuItem,
-  FormControl,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
 import {
   Search,
-  Message,
   DarkMode,
   LightMode,
-  Notifications,
-  Help,
-  Menu,
-  Close,
 } from "@mui/icons-material";
-import CategoryIcon from "@mui/icons-material/Category";
-import { useDispatch, useSelector } from "react-redux";
-// import { setMode, setLogout } from "state";
-import { useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
-import axios from "redaxios";
-import Tag from "../components/TagButton";
-// import SearchedEvent from "../components/SearchedEvent";
+import { FaSearch } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 
-// const SearchBar = ({ products, category, theater, setResults, onStateChange }) => {
-function SearchBar({ onStateChange }) {
+
+const categories = [
+  { title: "Fantasy Life" },
+  { title: "New Age" },
+  { title: "For Animals" },
+  { title: "Concert" },
+  { title: "Theater" },
+  { title: "Rave" },
+  { title: "Club" },
+];
+
+function SearchBar({ onStateChange, setResults }) {
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
   const dark = theme.palette.neutral.dark;
   const background = theme.palette.background.default;
   const alt = theme.palette.background.alt;
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
-  const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+  const isNonMobileScreens = useMediaQuery("(min-width: 1300px)");
   const [searchTerm, setSearchTerm] = useState("");
   const inputRef = useRef();
+  const token = useSelector((state) =>state.token)
 
-  const handleChange = (event) => {
-    const value = event.target.value;
-    setSearchTerm(value);
-  };
+
+  const [category, setCategory] = useState("") 
+  const [searchResults, setSearchResults] = useState([]);
+
+  //
+  const [input, setInput] = useState("");
+
+  // const handleChange = (event) => {
+  //   const value = event.target.value;
+  //   setSearchTerm(value);
+  // }; reikia sito pries tai
 
   const onClick = (searchTerm) => {
     console.log(searchTerm);
-    onStateChange(searchTerm !== "" ? searchTerm : "");
+    onStateChange(searchTerm !== '' ? searchTerm : '');
+  };
+
+
+  const fetchData = (value) => {
+    fetch("http://localhost:3001/events", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        const results = json.filter((event) => {
+          return (
+            value &&
+            event &&
+            event.title &&
+            event.title.toLowerCase().includes(value)
+            // event.username &&
+            // event.username.toLowerCase().includes(value) || 
+            // event.date &&
+            // event.date.toLowerCase().includes(value)  ||
+            // event.category  &&
+            // event.category.toLowerCase().includes(value) ||
+            // event.location &&
+            // event.location.toLowerCase().includes(value) 
+          );
+        });
+        setResults(results);
+      });
+  };
+  //
+  const handleChange = (value) => {
+    setInput(value);
+    fetchData(value);
   };
 
   return (
-    <FlexBetween padding="1rem 6%" backgroundColor={alt}>
+    <FlexBetween 
+    padding="1rem 6%" 
+    backgroundColor={alt}
+    // display={isNonMobileScreens ? "flex" : "block"}
+    >
+
       {/* DESKTOP NAV */}
       {isNonMobileScreens ? (
         <FlexBetween gap="2rem">
@@ -62,45 +105,49 @@ function SearchBar({ onStateChange }) {
             <LightMode sx={{ color: dark, fontSize: "25px" }} />
           )}
           <IconButton
-            onClick={() => onClick("Fantasy life")}
-            sx={{ fontSize: "20px" }}
+            onClick={() => onClick("Fantasy Life")}
+            sx={{ fontSize: "1rem", fontFamily: "monospace" }}
+            
           >
-            {" "}
             Fantasy Life
           </IconButton>
           <IconButton
-            onClick={() => onClick("New age")}
-            sx={{ fontSize: "20px" }}
+            onClick={() => onClick("New Age")}
+            sx={{ fontSize: "1rem", fontFamily: "monospace"  }}
           >
             {" "}
             New Age
           </IconButton>
           <IconButton
-            onClick={() => onClick("For animals")}
-            sx={{ fontSize: "20px" }}
+            onClick={() => onClick("For Animals")}
+            sx={{ fontSize: "1rem", fontFamily: "monospace"  }}
           >
             {" "}
             For Animals
           </IconButton>
           <IconButton
             onClick={() => onClick("Concert")}
-            sx={{ fontSize: "20px" }}
+            sx={{ fontSize: "1rem", fontFamily: "monospace"  }}
           >
             {" "}
             Concert
           </IconButton>
           <IconButton
             onClick={() => onClick("Theater")}
-            sx={{ fontSize: "20px" }}
+            sx={{ fontSize: "1rem", fontFamily: "monospace"  }}
           >
             {" "}
             Theater
           </IconButton>
-          <IconButton onClick={() => onClick("Rave")} sx={{ fontSize: "20px" }}>
+          <IconButton 
+          onClick={() => onClick("Rave")} 
+          sx={{ fontSize: "1rem", fontFamily: "monospace"  }}>
             {" "}
             Rave
           </IconButton>
-          <IconButton onClick={() => onClick("Club")} sx={{ fontSize: "20px" }}>
+          <IconButton 
+          onClick={() => onClick("Club")} 
+          sx={{ fontSize: "1rem", fontFamily: "monospace"  }}>
             {" "}
             Club
           </IconButton>
@@ -109,19 +156,23 @@ function SearchBar({ onStateChange }) {
         <IconButton
           onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
         >
-          <CategoryIcon />
         </IconButton>
       )}
 
       <FlexBetween gap="1.75rem">
         <FlexBetween
-          backgroundColor={neutralLight}
+          // backgroundColor={neutralLight}
           borderRadius="9px"
-          gap="3rem"
+          gap="1rem"
           padding="0.1rem 1.5rem"
+          // width="200px"
+          
+        
         >
-          <InputBase
-            placeholder="Search..."
+
+          {/* <InputBase
+
+            placeholder="e. g. 'Fantasy Life'"
             type="text"
             ref={inputRef}
             // onChange={handleFilterChange}
@@ -130,91 +181,20 @@ function SearchBar({ onStateChange }) {
           />
           <IconButton onClick={() => onClick(searchTerm)}>
             <Search />
-          </IconButton>
+          </IconButton> */}
+
+
+<FaSearch id="search-icon" />
+      <input
+        placeholder="Type to search..."
+        value={input}
+        onChange={(e) => handleChange(e.target.value)}
+      />
+  
+
+
         </FlexBetween>
-      </FlexBetween>
-
-      {/* MOBILE NAV */}
-      {!isNonMobileScreens && isMobileMenuToggled && (
-        <Box
-          position="fixed"
-          right="0"
-          bottom="0"
-          height="100%"
-          zIndex="10"
-          maxWidth="500px"
-          minWidth="300px"
-          backgroundColor={background}
-        >
-          {/* CLOSE ICON */}
-          <Box display="flex" justifyContent="flex-end" p="1rem">
-            <IconButton
-              onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
-            >
-              <Close />
-            </IconButton>
-          </Box>
-
-          {/* MENU ITEMS */}
-          <FlexBetween
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-            gap="3rem"
-          >
-            <IconButton
-              onClick={() => onClick("Fantasy life")}
-              sx={{ fontSize: "20px" }}
-            >
-              {" "}
-              Fantasy Life
-            </IconButton>
-            <IconButton
-              onClick={() => onClick("New age")}
-              sx={{ fontSize: "20px" }}
-            >
-              {" "}
-              New Age
-            </IconButton>
-            <IconButton
-              onClick={() => onClick("For animals")}
-              sx={{ fontSize: "20px" }}
-            >
-              {" "}
-              For Animals
-            </IconButton>
-            <IconButton
-              onClick={() => onClick("Concert")}
-              sx={{ fontSize: "20px" }}
-            >
-              {" "}
-              Concert
-            </IconButton>
-            <IconButton
-              onClick={() => onClick("Theater")}
-              sx={{ fontSize: "20px" }}
-            >
-              {" "}
-              Theater
-            </IconButton>
-            <IconButton
-              onClick={() => onClick("Rave")}
-              sx={{ fontSize: "20px" }}
-            >
-              {" "}
-              Rave
-            </IconButton>
-            <IconButton
-              onClick={() => onClick("Club")}
-              sx={{ fontSize: "20px" }}
-            >
-              {" "}
-              Club
-            </IconButton>
-          </FlexBetween>
-        </Box>
-      )}
+      </FlexBetween>      
     </FlexBetween>
   );
 }

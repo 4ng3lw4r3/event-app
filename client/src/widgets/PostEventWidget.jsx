@@ -24,8 +24,13 @@ import WidgetWrapper from "../components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setEvents } from "../state/index.js";
-import hellookitty from "../assets/hellookitty.jpg"
+import hellookitty from "../assets/hellookitty.jpg";
 import * as yup from "yup";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 
 const postEventSchema = yup.object({
   title: yup
@@ -57,6 +62,16 @@ const initialValuesPostEvent = {
   picture: "",
 };
 
+const categories = [
+  { label: "Fantasy Life" },
+  { label: "New Age" },
+  { label: "For Animals" },
+  { label: "Concert" },
+  { label: "Theater" },
+  { label: "Rave" },
+  { label: "Club" },
+];
+
 const PostEventWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
   const [isImage, setIsImage] = useState(false);
@@ -64,7 +79,7 @@ const PostEventWidget = ({ picturePath }) => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState();
   const [description, setDescription] = useState("");
   const { palette } = useTheme();
   const { _id } = useSelector((state) => state.user); //i backend
@@ -72,6 +87,24 @@ const PostEventWidget = ({ picturePath }) => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const mediumMain = palette.neutral.mediumMain;
   const medium = palette.neutral.medium;
+
+  const handleDateChange = (date) => {
+    setDate(date);
+  };
+
+  const handleConvertToString = () => {
+    const dateString = date.toISOString();
+    console.log(dateString);
+  };
+
+const handleOptionChange = (event, value) => {
+  if (value) {
+    setCategory(value.label);
+  } else {
+    setCategory("");
+  }
+};
+
 
   const handleEvent = async () => {
     const formData = new FormData();
@@ -95,7 +128,7 @@ const PostEventWidget = ({ picturePath }) => {
     });
 
     const events = await response.json();
-    
+
     dispatch(setEvents({ events }));
     setImage(null);
     setTitle("");
@@ -123,6 +156,37 @@ const PostEventWidget = ({ picturePath }) => {
           </Typography>
         </FlexBetween>
         <FlexBetween>
+          <Autocomplete
+            disablePortal
+            id="categories"
+            options={categories}
+            renderInput={(params) => <TextField {...params} label="Category" />}
+            value={category}
+            onChange={handleOptionChange}
+            sx={{
+              width: "48%",
+              borderRadius: "2rem",
+              padding: "1rem 0.5rem",
+            }}
+          />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              onSubmit={handleEvent}
+              label="Date"
+              placeholder="When?"
+              // onChange={(e) => setDate(e.target.value)}
+              onChange={handleDateChange}
+              value={date}
+              sx={{
+                width: "48%",
+                // backgroundColor: palette.neutral.light,
+                borderRadius: "2rem",
+                // padding: "1rem 0.5rem",
+              }}
+            />
+          </LocalizationProvider>
+        </FlexBetween>
+        <FlexBetween>
           <InputBase
             onSubmit={handleEvent}
             initialvalues={initialValuesPostEvent}
@@ -133,7 +197,7 @@ const PostEventWidget = ({ picturePath }) => {
             value={title}
             name="title"
             sx={{
-              width: "45%",
+              width: "48%",
               backgroundColor: palette.neutral.light,
               borderRadius: "2rem",
               padding: "1rem 2rem",
@@ -143,46 +207,12 @@ const PostEventWidget = ({ picturePath }) => {
             onSubmit={handleEvent}
             initialValues={initialValuesPostEvent}
             validationSchema={postEventSchema}
-            label="Date"
-            placeholder="When?"
-            onChange={(e) => setDate(e.target.value)}
-            value={date}
-            name="title"
-            sx={{
-              width: "45%",
-              backgroundColor: palette.neutral.light,
-              borderRadius: "2rem",
-              padding: "1rem 2rem",
-            }}
-          />
-        </FlexBetween>
-        <FlexBetween>
-        <InputBase
-            onSubmit={handleEvent}
-            initialValues={initialValuesPostEvent}
-            validationSchema={postEventSchema}
             label="Location"
             placeholder="Where?"
             onChange={(e) => setLocation(e.target.value)}
             value={location}
             sx={{
-              width: "45%",
-              backgroundColor: palette.neutral.light,
-              borderRadius: "2rem",
-              padding: "1rem 2rem",
-            }}
-          />
-        <InputBase
-            onSubmit={handleEvent}
-            initialValues={initialValuesPostEvent}
-            validationSchema={postEventSchema}
-            label="Category"
-            placeholder="Choose"
-            onChange={(e) => setCategory(e.target.value)}
-            value={category}
-            name="title"
-            sx={{
-              width: "45%",
+              width: "48%",
               backgroundColor: palette.neutral.light,
               borderRadius: "2rem",
               padding: "1rem 2rem",
