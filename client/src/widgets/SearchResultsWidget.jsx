@@ -13,6 +13,8 @@ const SearchResultsWidget = ({ results }) => {
             location={result.location}
             category={result.category}
             date={result.date}
+            selectedDate={result.date}
+            formattedDate={result.date}
             description={result.description}
           />
         ))}

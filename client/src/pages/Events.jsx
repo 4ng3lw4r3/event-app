@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import { Box, useMediaQuery } from "@mui/material";
+import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import EventsWidget from "../widgets/EventsWidget";
@@ -8,7 +8,6 @@ import SearchBar from "../components/SearchBar";
 import SearchResultsWidget from "../widgets/SearchResultsWidget";
 
 const Events = () => {
-  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const { _id } = useSelector((state) => state.user);
   const [showContent, setShowContent] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,28 +19,20 @@ const Events = () => {
   };
 
   return (
-    <Box>
+    <Box
+    >
       <Navbar />
       <CategoriesNavbar onStateChange={handleChildState} />
       <SearchBar setResults={setResults} />
-
-      <Box
-        width="100%"
-        padding="2rem 6%"
-        display={isNonMobileScreens ? "flex" : "block"}
-        gap="0.5rem"
-        justifyContent="space-between"
-      >
-        <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
+      <div 
+      style={{ display: "flex", flexWrap: "wrap",  justifyContent: "space-around",
+      gap: "1rem", padding: "2.5rem 0", width:"100%", padding:"2rem 6%"}}>
           {results && results.length > 0 && (
             <SearchResultsWidget results={results} />
           )}
-
-          <div style={{ display: "flex", flexDirection: "column-reverse" }}>
             <EventsWidget userId={_id} category={searchTerm} />
-          </div>
-        </Box>
-      </Box>
+      </div>
+
     </Box>
   );
 };

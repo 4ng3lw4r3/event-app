@@ -68,13 +68,13 @@ function Navbar() {
             <Message sx={{ fontSize: "25px" }} />
             <Notifications sx={{ fontSize: "25px" }} />
             <Help sx={{ fontSize: "25px" }} />
-            <FormControl variant="standard" value={username}>
+            <FormControl variant="standard" value={username} >
               <Select
                 value={username}
                 sx={{
-                  fontSize: "2rem",
+                  fontSize: "1rem",
                   fontFamily: "monospace",
-                  backgroundColor: neutralLight,
+                  backgroundColor: alt,
                   width: "250px",
                   borderRadius: "0.25rem",
                   p: "0.25rem 1rem",
@@ -139,7 +139,7 @@ function Navbar() {
                 <Select
                   value={username}
                   sx={{
-                    backgroundColor: neutralLight,
+                    backgroundColor: alt,
                     width: "250px",
                     borderRadius: "9px",
                     p: "0.25rem 1rem",

@@ -1,4 +1,7 @@
 import * as React from "react";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import Stack from "@mui/material/Stack";
 import {
   ChatBubbleOutlineOutlined,
   FavoriteBorderOutlined,
@@ -44,6 +47,7 @@ const EventWidget = ({
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const primary = palette.primary.main;
+  const [error, setError] = useState(null);
 
   const patchLike = async () => {
     const response = await fetch(
@@ -63,6 +67,13 @@ const EventWidget = ({
 
   const deleteEvent = async () => {
     try {
+      if (eventUserId !== loggedInUserId) {
+        const errorMessage =
+          "You are not authorized to delete this event. You can only delete your events. Do not mess w my database!";
+        setError(errorMessage);
+        return;
+      }
+
       const response = await fetch(`http://localhost:3001/events/${eventId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
@@ -109,6 +120,13 @@ const EventWidget = ({
 
   return (
     <WidgetWrapper m="2rem 0">
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Are you sure? This cannot be undone. Refresh the page after lol"
+        action={action}
+      />
       <Friend
         friendId={eventUserId}
         username={username}
@@ -128,26 +146,23 @@ const EventWidget = ({
           <CategoryIcon />
           {category}
         </Typography>
-        <Typography color={main} sx={{ mt: "1rem" }}>
-          <CalendarMonthIcon />
-          {date}
-        </Typography>
+
         <Typography color={main} sx={{ mt: "1rem" }}>
           <LocationOnIcon />
           {location}
         </Typography>
       </FlexBetween>
-      <Typography color={main} sx={{ mt: "1rem" }}>
-        {description}
-      </Typography>
-
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message="Are you sure? This cannot be undone. Refresh the page after lol"
-        action={action}
-      />
+      <FlexBetween>
+        <Typography color={main} sx={{ mt: "1rem" }}>
+          <CalendarMonthIcon />
+          {date}
+        </Typography>
+      </FlexBetween>
+      <FlexBetween>
+        <Typography color={main} sx={{ mt: "1rem" }}>
+          {description}
+        </Typography>
+      </FlexBetween>
 
       <FlexBetween mt="0.25rem">
         <FlexBetween gap="1rem">
@@ -188,6 +203,15 @@ const EventWidget = ({
           </FlexBetween>
         </FlexBetween>
       </FlexBetween>
+
+      {error && (
+        <Stack sx={{ width: "100%" }} spacing={2}>
+          <Alert severity="error">
+            <AlertTitle>Girl!</AlertTitle>
+            {error}
+          </Alert>
+        </Stack>
+      )}
 
       {isComments && (
         <Box mt="0.5rem">
