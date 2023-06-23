@@ -8,7 +8,14 @@ import {
   FavoriteOutlined,
   ShareOutlined,
 } from "@mui/icons-material";
-import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Divider,
+  IconButton,
+  Typography,
+  useTheme,
+  InputBase,
+} from "@mui/material";
 import Friend from "../components/Friend";
 import FlexBetween from "../components/FlexBetween";
 import WidgetWrapper from "../components/WidgetWrapper";
@@ -22,7 +29,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import CloseIcon from "@mui/icons-material/Close";
-import { setEvent } from "../state/index.js";
+import { setEvent, updateEvent, deleteEvent } from "../state/index.js";
 
 const EventWidget = ({
   eventId,
@@ -48,6 +55,15 @@ const EventWidget = ({
   const main = palette.neutral.main;
   const primary = palette.primary.main;
   const [error, setError] = useState(null);
+  const [isTiptapVisible, setTiptapVisible] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [updatedEvent, setUpdatedEvent] = useState({
+    title,
+    category,
+    location,
+    date,
+    description,
+  });
 
   const patchLike = async () => {
     const response = await fetch(
@@ -82,6 +98,10 @@ const EventWidget = ({
         setOpen(true);
         console.log("Event deleted successfully");
         console.log(eventId);
+
+        // const updatedEventData = await response.json();
+        // dispatch(deleteEvent(updatedEventData));
+
       } else {
         console.log("Error deleting event");
       }
@@ -90,8 +110,50 @@ const EventWidget = ({
     }
   };
 
+  const handleUpdateEvent = async () => {
+    try {
+      if (eventUserId !== loggedInUserId) {
+        const errorMessage =
+          "You are not authorized to update this event. You can only update your events. Do not mess w my database!";
+        setError(errorMessage);
+        return;
+      }
+      const response = await fetch(`http://localhost:3001/events/${eventId}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedEvent),
+      });
+      if (response.ok) {
+        const updatedEventData = await response.json();
+        dispatch(updateEvent(updatedEventData));
+        setIsEditMode(false);
+        console.log("Event updated successfully");
+      } else {
+        console.log("Error updating event");
+      }
+    } catch (error) {
+      console.log("Error updating event:", error);
+    }
+  };
+
   const handleClick = () => {
     setOpen(true);
+  };
+
+  const handleEditClick = () => {
+    setTiptapVisible(true);
+    setIsEditMode(true);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUpdatedEvent((prevEvent) => ({
+      ...prevEvent,
+      [name]: value,
+    }));
   };
 
   const handleClose = (event, reason) => {
@@ -197,7 +259,7 @@ const EventWidget = ({
           </FlexBetween>
 
           <FlexBetween gap="0.3rem">
-            <IconButton>
+            <IconButton onClick={handleEditClick}>
               <EditIcon />
             </IconButton>
           </FlexBetween>
@@ -225,6 +287,40 @@ const EventWidget = ({
           ))}
           <Divider />
         </Box>
+      )}
+
+      {isEditMode ? (
+        <Box>
+          <Typography variant="h6">Edit Event</Typography>
+          <FlexBetween>
+            <FlexBetween mt="0.5rem">
+              <InputBase
+                name="title"
+                value={updatedEvent.title}
+                onChange={handleInputChange}
+              />
+            </FlexBetween>
+            <FlexBetween mt="0.5rem">
+              <InputBase
+                name="description"
+                value={updatedEvent.description}
+                onChange={handleInputChange}
+              />
+            </FlexBetween>
+
+            <FlexBetween mt="0.5rem">
+              <InputBase
+                name="date"
+                value={updatedEvent.date}
+                onChange={handleInputChange}
+              />
+            </FlexBetween>
+          </FlexBetween>
+          <Button onClick={handleUpdateEvent}>Save</Button>
+          <Button onClick={() => setIsEditMode(false)}>Cancel</Button>
+        </Box>
+      ) : (
+        <Box>{/* ... */}</Box>
       )}
     </WidgetWrapper>
   );

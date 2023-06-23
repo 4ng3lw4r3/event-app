@@ -92,6 +92,21 @@ function SearchBar({ setResults }) {
         setResults((prevResults) => [...prevResults, ...results]);
       });
   };
+  const fetchDataDateString = (value) => {
+  
+    fetch("http://localhost:3001/events", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        const results = json.filter((event) => {
+          return (
+            value && event && event.date && event.date.includes(value)
+          );
+        });
+        setResults((prevResults) => [...prevResults, ...results]);
+      });
+  };
   const fetchDataDescription = (value) => {
     fetch("http://localhost:3001/events", {
       headers: { Authorization: `Bearer ${token}` },
@@ -135,6 +150,7 @@ function SearchBar({ setResults }) {
     fetchDataDate(value);
     fetchDataDescription(value);
     fetchDataCategory(value);
+    fetchDataDateString(value);
   };
 
   const handleDateChange = (date) => {
