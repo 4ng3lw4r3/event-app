@@ -2,7 +2,7 @@ import { Box, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Navbar from "../components/navbar";
+import Navbar from "../components/Navbar";
 import FriendListWidget from "../widgets/FriendListWidget";
 import EventsWidget from "../widgets/EventsWidget";
 import UserWidget from "../widgets/UserWidget";
