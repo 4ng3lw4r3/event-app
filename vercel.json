@@ -5,9 +5,9 @@
        { "src": "app.js", "use": "@vercel/node" }
     ],
     "routes": [
-       { "src": "/(.*)", "dest": "/app.js" }
-    ],
-    "rewrites":  [
-        {"source": "/(.*)", "destination": "/"}
+        { "src": "/", "dest": "/" },
+        { "src": "/home", "dest": "/" },
+        { "src": "/profile/:userId", "dest": "/" },
+        { "src": "/events", "dest": "/" }
       ]
  }
