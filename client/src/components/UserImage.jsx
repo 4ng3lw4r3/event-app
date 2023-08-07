@@ -4,7 +4,6 @@ import hellookitty from "../assets/hellookitty.jpg"
 const UserImage = ({ size }) => {
   return (
     <Box
-     width={size} height={size}
      >
         <img
         style={{ objectFit: "cover", borderRadius: "50%" }}

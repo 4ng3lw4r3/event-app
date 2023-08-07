@@ -52,7 +52,7 @@ const Home = () => {
 
           <PostEventWidget picturePath={picturePath} />
 
-          <div style={{ display: "flex", flexDirection: "column-reverse" }}>
+          <div style={{ marginTop: "1rem", gap:"1rem", display: "flex", flexDirection: "column-reverse" }}>
             <EventsWidget
               userId={_id}
               category={searchTerm}

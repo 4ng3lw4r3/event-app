@@ -136,7 +136,7 @@ const PostEventWidget = () => {
     <WidgetWrapper>
       <Box
         display="grid"
-        gap="30px"
+        gap="1rem"
         gridTemplateColumns="repeat(4, minmax(0, 1fr))"
         sx={{
           "& > div": { gridColumn: "span 4" },
@@ -190,7 +190,7 @@ const PostEventWidget = () => {
               width: "48%",
               backgroundColor: palette.neutral.light,
               borderRadius: "2rem",
-              padding: "1rem 2rem",
+              padding: ".7rem 2rem",
             }}
           />
           <InputBase
@@ -205,7 +205,7 @@ const PostEventWidget = () => {
               width: "48%",
               backgroundColor: palette.neutral.light,
               borderRadius: "2rem",
-              padding: "1rem 2rem",
+              padding: ".7rem 2rem",
             }}
           />
         </FlexBetween>
@@ -221,7 +221,7 @@ const PostEventWidget = () => {
             gridColumn: "span 4",
             backgroundColor: palette.neutral.light,
             borderRadius: "2rem",
-            padding: "1rem 2rem",
+            padding: ".7rem 2rem",
           }}
         />
       </Box>

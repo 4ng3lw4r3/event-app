@@ -101,7 +101,6 @@ const EventWidget = ({
 
         // const updatedEventData = await response.json();
         // dispatch(deleteEvent(updatedEventData));
-
       } else {
         console.log("Error deleting event");
       }
@@ -181,7 +180,7 @@ const EventWidget = ({
   );
 
   return (
-    <WidgetWrapper m="2rem 0">
+    <WidgetWrapper gap="1rem" display="flex" flexDirection="column">
       <Snackbar
         open={open}
         autoHideDuration={6000}
@@ -199,23 +198,24 @@ const EventWidget = ({
         color={main}
         fontWeight="400"
         variant="h5"
-        sx={{ mt: "3rem", mb: "1rem" }}
+        display="flex"
+        sx={{}}
       >
         {title}
       </Typography>
       <FlexBetween>
-        <Typography color={main} sx={{ mt: "1rem" }}>
+        <Typography display="flex" gap=".4rem" color={main} sx={{ mt: "1rem" }}>
           <CategoryIcon />
           {category}
         </Typography>
 
-        <Typography color={main} sx={{ mt: "1rem" }}>
+        <Typography display="flex" gap=".4rem" color={main} sx={{ mt: "1rem" }}>
           <LocationOnIcon />
           {location}
         </Typography>
       </FlexBetween>
       <FlexBetween>
-        <Typography color={main} sx={{ mt: "1rem" }}>
+        <Typography display="flex" gap=".4rem" color={main} sx={{}}>
           <CalendarMonthIcon />
           {date}
         </Typography>
@@ -226,7 +226,7 @@ const EventWidget = ({
         </Typography>
       </FlexBetween>
 
-      <FlexBetween mt="0.25rem">
+      <FlexBetween mt="auto">
         <FlexBetween gap="1rem">
           <FlexBetween gap="0.3rem">
             <IconButton onClick={patchLike}>
@@ -290,35 +290,60 @@ const EventWidget = ({
       )}
 
       {isEditMode ? (
-        <Box>
-          <Typography variant="h6">Edit Event</Typography>
-          <FlexBetween>
-            <FlexBetween mt="0.5rem">
-              <InputBase
-                name="title"
-                value={updatedEvent.title}
-                onChange={handleInputChange}
-              />
-            </FlexBetween>
-            <FlexBetween mt="0.5rem">
-              <InputBase
-                name="description"
-                value={updatedEvent.description}
-                onChange={handleInputChange}
-              />
-            </FlexBetween>
+        <WidgetWrapper gap="1rem" display="flex" flexDirection="column">
+  
+          <Divider/>
 
-            <FlexBetween mt="0.5rem">
-              <InputBase
-                name="date"
-                value={updatedEvent.date}
-                onChange={handleInputChange}
-              />
-            </FlexBetween>
-          </FlexBetween>
+          <Typography
+            color={main}
+            fontWeight="400"
+            variant="h5"
+            display="flex"
+            sx={{}}
+          >
+            Title:</Typography>
+          <InputBase
+            name="title"
+            value={updatedEvent.title}
+            onChange={handleInputChange}
+          />
+        <Divider/>
+
+          <Typography
+            color={main}
+            fontWeight="400"
+            variant="h5"
+            display="flex"
+            sx={{}}
+          >
+            Description:
+          </Typography>
+          <InputBase
+            name="description"
+            value={updatedEvent.description}
+            onChange={handleInputChange}
+          />
+        <Divider/>
+
+          <Typography
+            color={main}
+            fontWeight="400"
+            variant="h5"
+            display="flex"
+            sx={{}}
+          >
+            Date:
+          </Typography>
+
+          <InputBase
+            name="date"
+            value={updatedEvent.date}
+            onChange={handleInputChange}
+          />
+
           <Button onClick={handleUpdateEvent}>Save</Button>
           <Button onClick={() => setIsEditMode(false)}>Cancel</Button>
-        </Box>
+        </WidgetWrapper>
       ) : (
         <Box>{/* ... */}</Box>
       )}

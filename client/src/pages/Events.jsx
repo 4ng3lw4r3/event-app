@@ -25,8 +25,8 @@ const Events = () => {
       <CategoriesNavbar onStateChange={handleChildState} />
       <SearchBar setResults={setResults} />
       <div 
-      style={{ display: "flex", flexWrap: "wrap",  justifyContent: "space-around",
-      gap: "1rem", padding: "2.5rem 0", width:"100%", padding:"2rem 6%"}}>
+      style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)",
+      gap: "1rem", padding: "2.5rem 0", padding:"2rem 6%"}}>
           {results && results.length > 0 && (
             <SearchResultsWidget results={results} />
           )}
