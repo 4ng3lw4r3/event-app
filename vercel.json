@@ -1,13 +1,15 @@
+
+
 {
-    "version": 2,
-    "name": "event-app",
-    "builds": [
-       { "src": "app.js", "use": "@vercel/node" }
-    ],
-    "routes": [
-        { "src": "/", "dest": "/" },
-        { "src": "/home", "dest": "/" },
-        { "src": "/profile/:userId", "dest": "/" },
-        { "src": "/events", "dest": "/" }
-      ]
- }
+  "version": 2,
+  "name": "event-app",
+  "builds": [
+    { "src": "app.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/home", "dest": "/" },
+    { "src": "/profile/:userId", "dest": "/" },
+    { "src": "/events", "dest": "/" },
+    { "src": "/(.*)", "dest": "app.js" }
+  ]
+}
