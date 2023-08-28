@@ -67,7 +67,7 @@ const EventWidget = ({
 
   const patchLike = async () => {
     const response = await fetch(
-      `http://localhost:3001/events/${eventId}/like`,
+      `https://queenevents.vercel.app/events/${eventId}/like`,
       {
         method: "PATCH",
         headers: {
@@ -90,7 +90,7 @@ const EventWidget = ({
         return;
       }
 
-      const response = await fetch(`http://localhost:3001/events/${eventId}`, {
+      const response = await fetch(`https://queenevents.vercel.app/events/${eventId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -117,7 +117,7 @@ const EventWidget = ({
         setError(errorMessage);
         return;
       }
-      const response = await fetch(`http://localhost:3001/events/${eventId}`, {
+      const response = await fetch(`https://queenevents.vercel.app/events/${eventId}`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`,

@@ -113,7 +113,7 @@ const PostEventWidget = () => {
       formData.append("picturePath", image.name);
     }
 
-    const response = await fetch(" http://localhost:3001/events", {
+    const response = await fetch("https://queenevents.vercel.app/events", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

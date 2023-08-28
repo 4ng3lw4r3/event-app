@@ -22,7 +22,7 @@ const UserWidget = ({ userId }) => {
   const main = palette.neutral.main;
 
   const getUser = async (values) => {
-    const response = await fetch(`http://localhost:3001/users/${userId}`, {
+    const response = await fetch(`https://queenevents.vercel.app/users/${userId}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
       body: JSON.stringify(values),

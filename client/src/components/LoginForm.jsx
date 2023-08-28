@@ -51,7 +51,7 @@ const LoginForm = () => {
 
   const register = async (values, onSubmitProps) => {
     const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
+      "https://queenevents.vercel.app",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -68,7 +68,7 @@ const LoginForm = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
+    const loggedInResponse = await fetch("https://queenevents.vercel.app", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),

@@ -9,7 +9,7 @@ const EventsWidget = ({ userId, category, isProfile = false }) => {
   const token = useSelector((state) => state.token);
 
   const getEvents = async (category) => {
-    const response = await fetch("http://localhost:3001/events", {
+    const response = await fetch("https://queenevents.vercel.app/events", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -20,7 +20,7 @@ const EventsWidget = ({ userId, category, isProfile = false }) => {
 
   const getUserEvents = async () => {
     const response = await fetch(
-      `http://localhost:3001/events/${userId}/events`,
+      `https://queenevents.vercel.app/events/${userId}/events`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },

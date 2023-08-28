@@ -19,7 +19,7 @@ function SearchBar({ setResults }) {
   const [selectedDate, setSelectedDate] = useState(null);
 
   const fetchDataTitle = (value) => {
-    fetch("http://localhost:3001/events", {
+    fetch("https://queenevents.vercel.app/events", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => response.json())
@@ -37,7 +37,7 @@ function SearchBar({ setResults }) {
   };
 
   const fetchDataUsername = (value) => {
-    fetch("http://localhost:3001/events", {
+    fetch("https://queenevents.vercel.app/events", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => response.json())
@@ -55,7 +55,7 @@ function SearchBar({ setResults }) {
   };
 
   const fetchDataLocation = (value) => {
-    fetch("http://localhost:3001/events", {
+    fetch("https://queenevents.vercel.app/events", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => response.json())
@@ -79,7 +79,7 @@ function SearchBar({ setResults }) {
     const dateObject = dayjs(value);
     const formattedDate = dateObject.format("YYYY-MM-DD");
 
-    fetch("http://localhost:3001/events", {
+    fetch("https://queenevents.vercel.app/events", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => response.json())
@@ -94,7 +94,7 @@ function SearchBar({ setResults }) {
   };
   const fetchDataDateString = (value) => {
   
-    fetch("http://localhost:3001/events", {
+    fetch("https://queenevents.vercel.app/events", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => response.json())
@@ -108,7 +108,7 @@ function SearchBar({ setResults }) {
       });
   };
   const fetchDataDescription = (value) => {
-    fetch("http://localhost:3001/events", {
+    fetch("https://queenevents.vercel.app/events", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => response.json())
@@ -125,7 +125,7 @@ function SearchBar({ setResults }) {
       });
   };
   const fetchDataCategory = (value) => {
-    fetch("http://localhost:3001/events", {
+    fetch("https://queenevents.vercel.app/events", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => response.json())
