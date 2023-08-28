@@ -1,15 +1,12 @@
-
-
 {
   "version": 2,
-  "name": "event-app",
   "builds": [
-    { "src": "app.js", "use": "@vercel/node" }
+    { "src": "server.js", "use": "@vercel/node" },
+    { "src": "client/build/**", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/home", "dest": "/" },
-    { "src": "/profile/:userId", "dest": "/" },
-    { "src": "/events", "dest": "/" },
-    { "src": "/(.*)", "dest": "app.js" }
+    { "src": "/auth/(.*)", "dest": "/server.js" },
+    { "src": "/api/(.*)", "dest": "/server.js" },
+    { "src": "/.*", "dest": "/client/build/index.html" }
   ]
 }
