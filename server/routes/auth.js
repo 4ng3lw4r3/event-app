@@ -5,8 +5,8 @@ const router = express.Router();
 
 // CREATE
 
-router.post("auth/register", register);
+router.post("/", register);
 //prefix auth
-router.post("auth/login", login);
+router.post("/login", login);
 
 export default router;
